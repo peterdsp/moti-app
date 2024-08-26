@@ -43,7 +43,7 @@ cd Tempethera-App
 ### Configure the Project
 
 1. Open `Tempethera.xcodeproj` in Xcode.
-2. Replace placeholders in the code with your WeatherApi API.
+2. Replace placeholders in the code with your WeatherApi API, go to WeatherManager.swift-> private let apiKey = **HERE PUT YOUR API KEY**.
 3. Set the `Signing & Capabilities` to your developer account.
 
 ### Run the App
