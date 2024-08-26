@@ -21,7 +21,6 @@
 
 - macOS 13 or later
 - Xcode 14 or later
-- An Apple Developer account with WeatherKit enabled
 
 ### Clone the Repository
 
