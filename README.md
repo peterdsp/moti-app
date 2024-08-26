@@ -1,6 +1,6 @@
 # Tempethéra
 
-**Tempethéra** is a macOS menu bar application designed with SwiftUI, leveraging Apple's WeatherKit API to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 5-day weather forecast.
+**Tempethéra** is a macOS menu bar application designed with SwiftUI, leveraging OpenWeather API to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 5-day weather forecast.
 
 ## Features
 
