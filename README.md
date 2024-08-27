@@ -30,21 +30,30 @@
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/peterdsp/Tempethera-App.git
-cd Tempethera-App
+git clone https://github.com/peterdsp/moti-app.git
+cd moti-app
 ```
 
 ### Configure the Project
 
-1. Open `Tempethera.xcodeproj` in Xcode.
+1. Open `Moti.xcodeproj` in Xcode.
 2. Replace placeholders in the code with your WeatherApi API, go to WeatherManager.swift-> private let apiKey = **HERE PUT YOUR API KEY**.
 3. Set the `Signing & Capabilities` to your developer account.
 
-### Run the App
+### Run the App from GitHub
 
 1. Build and run the project in Xcode.
 2. Enable Location Services for the app. This allows the app to fetch weather data based on your current location.
 3. The app will appear in the menu bar with the current weather conditions. 
+
+### Run the App from Gumroad
+
+1. Download the app from Gumroad.
+2. Move the app to your Applications folder.
+3. Open the app. It will appear in the menu bar.
+4. Enable Location Services for the app. This allows the app to fetch weather data based on your current location.
+5. Close the app and reopen it to ensure that all settings are applied.
+6. Optionally, you can add the app to your Login Items so that it starts automatically when you log in to your Mac.
 
 ## Usage
 
