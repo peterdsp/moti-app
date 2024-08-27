@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Tempethera
+//  Moti
 //
 //  Created by Petros Dhespollari on 25/8/24.
 //
