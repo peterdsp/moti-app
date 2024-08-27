@@ -1,5 +1,5 @@
 //
-//  TempetheraApp.swift
+//  MotiApp.swift
 //  Tempethera
 //
 //  Created by Petros Dhespollari on 25/8/24.
@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 @main
-struct TempetheraApp: App {
+struct MotiApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -185,8 +185,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func showAbout() {
         let alert = NSAlert()
-        alert.messageText = "About Tempethera"
-        alert.informativeText = "Tempethera is a weather app that shows local weather information."
+        alert.messageText = "About Moti"
+        alert.informativeText = "Moti is a weather app that shows local weather information."
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
         alert.runModal()

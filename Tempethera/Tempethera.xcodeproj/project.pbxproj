@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C062A4D2C7A97CF0010D9F4 /* Tempethera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tempethera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C062A4D2C7A97CF0010D9F4 /* Moti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C062A502C7A97CF0010D9F4 /* TempetheraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempetheraApp.swift; sourceTree = "<group>"; };
 		2C062A522C7A97CF0010D9F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2C062A542C7A97CF0010D9F4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		2C062A4E2C7A97CF0010D9F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C062A4D2C7A97CF0010D9F4 /* Tempethera.app */,
+				2C062A4D2C7A97CF0010D9F4 /* Moti.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,9 +127,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C062A4C2C7A97CF0010D9F4 /* Tempethera */ = {
+		2C062A4C2C7A97CF0010D9F4 /* Moti */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Tempethera" */;
+			buildConfigurationList = 2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Moti" */;
 			buildPhases = (
 				2C062A492C7A97CF0010D9F4 /* Sources */,
 				2C062A4A2C7A97CF0010D9F4 /* Frameworks */,
@@ -139,9 +139,9 @@
 			);
 			dependencies = (
 			);
-			name = Tempethera;
+			name = Moti;
 			productName = Tempethera;
-			productReference = 2C062A4D2C7A97CF0010D9F4 /* Tempethera.app */;
+			productReference = 2C062A4D2C7A97CF0010D9F4 /* Moti.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +172,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C062A4C2C7A97CF0010D9F4 /* Tempethera */,
+				2C062A4C2C7A97CF0010D9F4 /* Moti */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +340,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Tempethéra";
+				INFOPLIST_KEY_CFBundleDisplayName = Moti;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -348,7 +348,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = App.Tempethera;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Moti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -370,7 +370,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Tempethéra";
+				INFOPLIST_KEY_CFBundleDisplayName = Moti;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,7 +378,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = App.Tempethera;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Moti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -397,7 +397,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Tempethera" */ = {
+		2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Moti" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C062A5F2C7A97D00010D9F4 /* Debug */,
