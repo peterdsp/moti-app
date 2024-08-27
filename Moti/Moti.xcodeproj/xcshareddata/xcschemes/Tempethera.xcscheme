@@ -18,7 +18,7 @@
                BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
                BuildableName = "Moti.app"
                BlueprintName = "Moti"
-               ReferencedContainer = "container:Tempethera.xcodeproj">
+               ReferencedContainer = "container:Moti.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
             BuildableName = "Moti.app"
             BlueprintName = "Moti"
-            ReferencedContainer = "container:Tempethera.xcodeproj">
+            ReferencedContainer = "container:Moti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
             BuildableName = "Moti.app"
             BlueprintName = "Moti"
-            ReferencedContainer = "container:Tempethera.xcodeproj">
+            ReferencedContainer = "container:Moti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

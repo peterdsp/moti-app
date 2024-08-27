@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C062A512C7A97CF0010D9F4 /* TempetheraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A502C7A97CF0010D9F4 /* TempetheraApp.swift */; };
+		2C062A512C7A97CF0010D9F4 /* Moti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A502C7A97CF0010D9F4 /* Moti.swift */; };
 		2C062A532C7A97CF0010D9F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A522C7A97CF0010D9F4 /* ContentView.swift */; };
 		2C062A552C7A97CF0010D9F4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A542C7A97CF0010D9F4 /* Item.swift */; };
 		2C062A572C7A97D00010D9F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C062A562C7A97D00010D9F4 /* Assets.xcassets */; };
@@ -20,12 +20,12 @@
 
 /* Begin PBXFileReference section */
 		2C062A4D2C7A97CF0010D9F4 /* Moti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moti.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C062A502C7A97CF0010D9F4 /* TempetheraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempetheraApp.swift; sourceTree = "<group>"; };
+		2C062A502C7A97CF0010D9F4 /* Moti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moti.swift; sourceTree = "<group>"; };
 		2C062A522C7A97CF0010D9F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2C062A542C7A97CF0010D9F4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2C062A562C7A97D00010D9F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C062A592C7A97D00010D9F4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2C062A5B2C7A97D00010D9F4 /* Tempethera.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tempethera.entitlements; sourceTree = "<group>"; };
+		2C062A5B2C7A97D00010D9F4 /* Moti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moti.entitlements; sourceTree = "<group>"; };
 		2C062A612C7A9AE70010D9F4 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		2C062A632C7A9D5C0010D9F4 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		2C062A652C7A9FCB0010D9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		2C062A442C7A97CF0010D9F4 = {
 			isa = PBXGroup;
 			children = (
-				2C062A4F2C7A97CF0010D9F4 /* Tempethera */,
+				2C062A4F2C7A97CF0010D9F4 /* Moti */,
 				2C062A4E2C7A97CF0010D9F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,12 +59,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C062A4F2C7A97CF0010D9F4 /* Tempethera */ = {
+		2C062A4F2C7A97CF0010D9F4 /* Moti */ = {
 			isa = PBXGroup;
 			children = (
 				2C062A652C7A9FCB0010D9F4 /* Info.plist */,
-				2C062A502C7A97CF0010D9F4 /* TempetheraApp.swift */,
-				2C062A5B2C7A97D00010D9F4 /* Tempethera.entitlements */,
+				2C062A502C7A97CF0010D9F4 /* Moti.swift */,
+				2C062A5B2C7A97D00010D9F4 /* Moti.entitlements */,
 				2C062A682C7AA2CF0010D9F4 /* Views */,
 				2C062A692C7AA2DD0010D9F4 /* ViewModels */,
 				2C062A6A2C7AA2E60010D9F4 /* Models */,
@@ -72,7 +72,7 @@
 				2C062A6C2C7AA2FF0010D9F4 /* Supporting Files */,
 				2C062A582C7A97D00010D9F4 /* Preview Content */,
 			);
-			path = Tempethera;
+			path = Moti;
 			sourceTree = "<group>";
 		};
 		2C062A582C7A97D00010D9F4 /* Preview Content */ = {
@@ -159,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Tempethera" */;
+			buildConfigurationList = 2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Moti" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -199,7 +199,7 @@
 				2C062A642C7A9D5C0010D9F4 /* WeatherData.swift in Sources */,
 				2C062A552C7A97CF0010D9F4 /* Item.swift in Sources */,
 				2C062A622C7A9AE70010D9F4 /* WeatherManager.swift in Sources */,
-				2C062A512C7A97CF0010D9F4 /* TempetheraApp.swift in Sources */,
+				2C062A512C7A97CF0010D9F4 /* Moti.swift in Sources */,
 				2C988C3D2C7C9A45007EBB34 /* ForecastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +388,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Tempethera" */ = {
+		2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Moti" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C062A5C2C7A97D00010D9F4 /* Debug */,
