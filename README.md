@@ -12,13 +12,7 @@
 
 ## Screenshots
 
-| Menu Bar Icon with Current Weather | Search Location |
-|-----------------------------------|-----------------|
-| <img src="https://github.com/user-attachments/assets/be44f179-4bfd-4c35-84ee-11cc7b03cc60" width="100%" alt="Menu Bar Icon with Current Weather"> | <img src="https://github.com/user-attachments/assets/d4386844-d221-4745-8654-3950f485244d" width="100%" alt="Search Location"> |
-
-| Location Suggestions | Context Menu |
-|----------------------|--------------|
-| <img src="https://github.com/user-attachments/assets/d65e5c4d-fc79-48bb-821f-ccb747c60c6a" width="100%" alt="Location Suggestions"> | <img src="https://github.com/user-attachments/assets/7c62fe5f-b088-4348-b902-e09f181e01b4" width="100%" alt="Context Menu"> |
+![Moti](https://github.com/user-attachments/assets/7e06214c-ea83-4245-9bf7-a09b10539744)
 
 ## Installation
 
