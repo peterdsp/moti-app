@@ -22,7 +22,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
     private let searchCompleter = MKLocalSearchCompleter()
-    private let apiKey = "7ec4d2d9f9924cb18d301120242508"
+    private let apiKey = "***"
     private var timer: Timer?
 
     override init() {
