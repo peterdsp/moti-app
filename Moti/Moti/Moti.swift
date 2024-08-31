@@ -7,6 +7,8 @@
 
 import AppKit
 import Combine
+import FirebaseCore
+import FirebaseRemoteConfig
 import SwiftUI
 
 @main
@@ -26,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        FirebaseApp.configure() // Initialize Firebase
+
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         NSApplication.shared.setActivationPolicy(.prohibited)
 
@@ -51,6 +55,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .store(in: &cancellables)
 
         weatherManager.fetchWeather()
+    }
+
+    func isNewVersionAvailable(localVersion: String, remoteVersion: String) -> Bool {
+        return remoteVersion.compare(localVersion, options: .numeric) == .orderedDescending
     }
 
     @objc func handleStatusBarClick(_ sender: NSStatusBarButton) {
@@ -86,19 +94,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func refreshWeather() {
-        // Set the loading icon while refreshing
         if let button = statusItem.button {
             updateStatusButton(button: button, showLoading: true)
         }
 
-        // Fetch the weather data again with a completion handler
         weatherManager.fetchWeather()
-        DispatchQueue.main.async {
-            let button = self.statusItem.button
-            let temperature = self.weatherManager.currentTemperature
-            let icon = self.weatherManager.currentWeatherIcon
-            self.updateStatusButton(button: button!, temperature: temperature, icon: icon, showLoading: false)
-        }
+
+        // Observe changes from the weatherManager
+        weatherManager.$currentTemperature
+            .combineLatest(weatherManager.$currentWeatherIcon)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] temperature, icon in
+                if let button = self?.statusItem.button {
+                    self?.updateStatusButton(button: button, temperature: temperature, icon: icon)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func updateStatusButton(button: NSStatusBarButton, temperature: Double = 0.0, icon: String? = nil, showLoading: Bool = false) {
@@ -157,7 +168,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if widthRatio > heightRatio {
             newSize = NSSize(width: image.size.width * heightRatio, height: image.size.height * heightRatio)
         } else {
-            newSize = NSSize(width: image.size.width * widthRatio, height: image.size.height * widthRatio)
+            newSize = NSSize(width: image.size.width * widthRatio, height: image.size.width * widthRatio)
         }
 
         let newImage = NSImage(size: newSize)
@@ -184,12 +195,83 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func showAbout() {
+        // Create the alert
         let alert = NSAlert()
         alert.messageText = "About Moti"
-        alert.informativeText = "Moti is a weather app that shows local weather information."
+
+        // Retrieve the app version from the Info.plist
+        let localVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let localBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+
+        // Initial informative text
+        alert.informativeText = "Moti is a weather app that shows local weather information.\nVersion: \(localVersion)"
+
         alert.alertStyle = .informational
+
+        // Add "OK" button
         alert.addButton(withTitle: "OK")
-        alert.runModal()
+
+        // Add "Check for Update" button
+        alert.addButton(withTitle: "Check for Update")
+
+        // Set the alert window to appear above all other apps
+        let window = alert.window
+        window.level = .statusBar
+
+        // Run the alert as a modal and get the user's choice
+        let response = alert.runModal()
+
+        if response == .alertSecondButtonReturn {
+            // The "Check for Update" button was clicked, so check Remote Config
+            checkForUpdate(remoteConfig: RemoteConfig.remoteConfig(), alert: alert, localVersion: localVersion, localBuild: localBuild)
+        }
+    }
+
+    func checkForUpdate(remoteConfig: RemoteConfig, alert: NSAlert, localVersion: String, localBuild: String) {
+        // Fetch the version from Remote Config
+        remoteConfig.fetchAndActivate { _, error in
+            if let error = error {
+                print("Error fetching remote config: \(error.localizedDescription)")
+                alert.informativeText = """
+                Moti is a weather app that shows local weather information.
+                Version: \(localVersion)
+                Error checking for updates: \(error.localizedDescription)
+                """
+            } else {
+                let remoteVersion = remoteConfig["latest_app_version"].stringValue ?? "Unknown"
+
+                // Compare local and remote versions
+                if remoteVersion != "Unknown" && self.isNewVersionAvailable(localVersion: localVersion, remoteVersion: remoteVersion) {
+                    alert.informativeText = """
+                    Moti is a weather app that shows local weather information.
+                    Version: \(localVersion)
+
+                    A newer version (\(remoteVersion)) is available! You can download it from the link below.
+                    """
+
+                    // Add a "Download" button
+                    alert.addButton(withTitle: "Download")
+                } else {
+                    alert.informativeText = """
+                    Moti is a weather app that shows local weather information.
+                    Version: \(localVersion)
+
+                    You have the latest version.
+                    """
+                }
+            }
+
+            // Show the updated alert modally above all other windows
+            alert.window.level = .statusBar
+            let response = alert.runModal()
+
+            // If the user clicked the "Download" button, open the download link
+            if response == .alertThirdButtonReturn {
+                if let url = URL(string: "https://peterdsp.gumroad.com/l/moti") {
+                    NSWorkspace.shared.open(url)
+                }
+            }
+        }
     }
 
     @objc func quitApp() {

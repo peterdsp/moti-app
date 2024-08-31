@@ -14,6 +14,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentTemperature: Double = 0.0
     @Published var forecast: [DayForecast] = []
     @Published var airQualityIndex: Int = 0
+    @Published var selectedLocation: CLLocationCoordinate2D?
     @Published var locationName: String = "Current Location"
     @Published var currentWeatherIcon: String = "//cdn.weatherapi.com/weather/64x64/day/116.png"
     @Published var locationError: Bool = false
@@ -22,7 +23,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
     private let searchCompleter = MKLocalSearchCompleter()
-    private let apiKey = "***"
+    private let apiKey = "***REMOVED***"
     private var timer: Timer?
 
     override init() {
@@ -33,99 +34,22 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         startWeatherUpdateTimer()
     }
 
-    private func startWeatherUpdateTimer() {
-        // Schedule the timer to fire every 29 minutes (29 * 60 seconds)
-        timer = Timer.scheduledTimer(withTimeInterval: 29 * 60, repeats: true) { [weak self] _ in
-            self?.fetchWeather()
-        }
-    }
-
     deinit {
-        // Invalidate the timer when the WeatherManager is deallocated
         timer?.invalidate()
     }
 
-    public func requestLocationAuthorization() {
-        let authorizationStatus: CLAuthorizationStatus
-
-        if #available(iOS 14.0, macOS 11.0, *) {
-            authorizationStatus = locationManager.authorizationStatus
-        } else {
-            authorizationStatus = CLLocationManager.authorizationStatus()
-        }
-
-        switch authorizationStatus {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted, .denied:
-            locationError = true
-            print("Location services are restricted or denied. Please enable them in Settings.")
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationError = false
-            locationManager.startUpdatingLocation()
-        @unknown default:
-            locationError = true
-            print("Unknown authorization status.")
-        }
+    func startUpdatingLocation() {
+        locationManager.startUpdatingLocation()
     }
 
-    private func checkLocationAuthorization() {
-        let authorizationStatus: CLAuthorizationStatus
-
-        if #available(iOS 14.0, macOS 11.0, *) {
-            authorizationStatus = locationManager.authorizationStatus
-        } else {
-            authorizationStatus = CLLocationManager.authorizationStatus()
-        }
-
-        switch authorizationStatus {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted, .denied:
-            locationError = true
-            print("Location services are restricted or denied. Please enable them in Settings.")
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationError = false
-            locationManager.startUpdatingLocation()
-        @unknown default:
-            locationError = true
-            print("Unknown authorization status.")
-        }
+    func fetchCurrentLocation() {
+        locationManager.stopUpdatingLocation()
+        locationManager.startUpdatingLocation()
     }
 
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        let status: CLAuthorizationStatus
-
-        if #available(macOS 11.0, *) {
-            status = manager.authorizationStatus
-        } else {
-            status = CLLocationManager.authorizationStatus()
-        }
-
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse, .authorized:
-            fetchWeather() // Proceed with weather fetching now that authorization is granted
-        case .denied, .restricted:
-            locationError = true
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        default:
-            locationError = true
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            print("No location found")
-            return
-        }
-        reverseGeocode(location: location) // Perform reverse geocoding to get the location name
-        fetchWeatherAt(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to get location: \(error.localizedDescription)")
-        locationError = true
+    func requestLocationAuthorization() {
+        let authorizationStatus = getLocationAuthorizationStatus()
+        handleAuthorizationStatus(authorizationStatus)
     }
 
     func fetchWeather() {
@@ -134,58 +58,39 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             return
         }
 
-        if #available(macOS 11.0, *) {
-            let status = locationManager.authorizationStatus
-            if status == .notDetermined {
-                locationManager.requestWhenInUseAuthorization()
-                return
-            }
+        if let selectedLocation = selectedLocation {
+            fetchWeatherAt(latitude: selectedLocation.latitude, longitude: selectedLocation.longitude)
+        } else if let location = locationManager.location {
+            fetchWeatherAt(latitude: round(location.coordinate.latitude * 100) / 100.0,
+                           longitude: round(location.coordinate.longitude * 100) / 100.0)
         } else {
-            let status = CLLocationManager.authorizationStatus()
-            if status == .notDetermined {
-                locationManager.requestWhenInUseAuthorization()
-                return
-            }
-        }
-
-        guard !locationError, let location = locationManager.location else {
             locationError = true
-            return
+            print("No valid location found")
         }
-
-        let latitude = round(location.coordinate.latitude * 100) / 100.0
-        let longitude = round(location.coordinate.longitude * 100) / 100.0
-
-        reverseGeocode(location: location) // Perform reverse geocoding to get the location name
-        fetchWeatherAt(latitude: latitude, longitude: longitude)
     }
 
     func geocodeLocation(locationName: String) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = locationName
 
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { [weak self] response, error in
-            if let error = error {
-                print("Failed to search location: \(error.localizedDescription)")
-                self?.locationError = true
+        MKLocalSearch(request: searchRequest).start { [weak self] response, error in
+            guard let self = self else { return }
+
+            if let error = error as? MKError {
+                self.handleSearchError(error)
                 return
             }
 
-            guard let self = self,
-                  let mapItem = response?.mapItems.first,
-                  let location = mapItem.placemark.location
-            else {
-                self?.locationError = true
+            if let mapItem = response?.mapItems.first, let location = mapItem.placemark.location {
+                DispatchQueue.main.async {
+                    self.selectedLocation = location.coordinate
+                    self.locationName = mapItem.name ?? locationName
+                    self.fetchWeatherAt(latitude: round(location.coordinate.latitude * 100) / 100.0,
+                                        longitude: round(location.coordinate.longitude * 100) / 100.0)
+                }
+            } else {
+                self.locationError = true
                 print("No valid location found")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.locationName = mapItem.name ?? locationName
-                let latitude = round(location.coordinate.latitude * 100) / 100.0
-                let longitude = round(location.coordinate.longitude * 100) / 100.0
-                self.fetchWeatherAt(latitude: latitude, longitude: longitude)
             }
         }
     }
@@ -194,83 +99,157 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         searchCompleter.queryFragment = query
     }
 
+    func clearSelectedLocation() {
+        selectedLocation = nil
+    }
+
+    private func startWeatherUpdateTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 29 * 60, repeats: true) { [weak self] _ in
+            self?.fetchWeather()
+        }
+    }
+
+    private func checkLocationAuthorization() {
+        let authorizationStatus = getLocationAuthorizationStatus()
+        handleAuthorizationStatus(authorizationStatus)
+    }
+
+    private func getLocationAuthorizationStatus() -> CLAuthorizationStatus {
+        if #available(iOS 14.0, macOS 11.0, *) {
+            return locationManager.authorizationStatus
+        } else {
+            return CLLocationManager.authorizationStatus()
+        }
+    }
+
+    private func handleAuthorizationStatus(_ status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            locationError = true
+            print("Location services are restricted or denied. Please enable them in Settings.")
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationError = false
+            locationManager.startUpdatingLocation()
+        @unknown default:
+            locationError = true
+            print("Unknown authorization status.")
+        }
+    }
+
     private func fetchWeatherAt(latitude: Double, longitude: Double) {
         let weatherURLString = "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(latitude),\(longitude)&days=5&aqi=yes"
-
         guard let weatherURL = URL(string: weatherURLString) else {
             print("Error: Invalid URL")
             return
         }
 
-        let task = URLSession.shared.dataTask(with: weatherURL) { data, response, error in
+        URLSession.shared.dataTask(with: weatherURL) { [weak self] data, response, error in
+            guard let self = self else { return }
+
             if let error = error {
                 print("Error during data task: \(error.localizedDescription)")
                 return
             }
 
-            if let httpResponse = response as? HTTPURLResponse {
-                switch httpResponse.statusCode {
-                case 200:
-                    print("Request succeeded with status code 200")
-                case 400:
-                    print("Bad Request: The server could not understand the request due to invalid syntax.")
-                case 401:
-                    print("Unauthorized: Access is denied due to invalid credentials.")
-                case 403:
-                    print("Forbidden: The server understood the request but refuses to authorize it.")
-                case 404:
-                    print("Not Found: The server can not find the requested resource.")
-                case 500:
-                    print("Internal Server Error: The server has encountered a situation it doesn't know how to handle.")
-                default:
-                    print("Unhandled HTTP status code: \(httpResponse.statusCode)")
-                }
-            }
+            self.handleHTTPResponse(response)
 
             guard let data = data else {
                 print("Error: No data received")
                 return
             }
 
-            do {
-                let decodedData = try JSONDecoder().decode(WeatherAPIResponse.self, from: data)
-                DispatchQueue.main.async {
-                    self.currentTemperature = decodedData.current.temp_c
-                    self.currentWeatherIcon = "https:" + decodedData.current.condition.icon
-                    self.forecast = decodedData.forecast.forecastday.map { forecastDay in
-                        DayForecast(
-                            date: Date(timeIntervalSince1970: TimeInterval(forecastDay.date_epoch)).formatted(.dateTime.weekday()),
-                            weatherIcon: "https:" + forecastDay.day.condition.icon,
-                            highTemp: forecastDay.day.maxtemp_c,
-                            lowTemp: forecastDay.day.mintemp_c
-                        )
-                    }
-                }
-            } catch {
-                print("Failed to decode JSON: \(error)")
+            self.decodeWeatherData(data)
+        }.resume()
+    }
+
+    private func handleHTTPResponse(_ response: URLResponse?) {
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                print("Request succeeded with status code 200")
+            case 400...499:
+                print("Client error occurred: \(httpResponse.statusCode)")
+            case 500...599:
+                print("Server error occurred: \(httpResponse.statusCode)")
+            default:
+                print("Unhandled HTTP status code: \(httpResponse.statusCode)")
             }
         }
+    }
 
-        task.resume()
+    private func decodeWeatherData(_ data: Data) {
+        do {
+            let decodedData = try JSONDecoder().decode(WeatherAPIResponse.self, from: data)
+            DispatchQueue.main.async {
+                self.currentTemperature = decodedData.current.temp_c
+                self.currentWeatherIcon = "https:" + decodedData.current.condition.icon
+                self.forecast = decodedData.forecast.forecastday.map { forecastDay in
+                    DayForecast(
+                        date: Date(timeIntervalSince1970: TimeInterval(forecastDay.date_epoch)).formatted(.dateTime.weekday()),
+                        weatherIcon: "https:" + forecastDay.day.condition.icon,
+                        highTemp: forecastDay.day.maxtemp_c,
+                        lowTemp: forecastDay.day.mintemp_c
+                    )
+                }
+            }
+        } catch {
+            print("Failed to decode JSON: \(error)")
+        }
     }
 
     private func reverseGeocode(location: CLLocation) {
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 print("Reverse geocoding failed: \(error.localizedDescription)")
                 return
             }
 
-            guard let placemark = placemarks?.first else {
+            if let placemark = placemarks?.first {
+                DispatchQueue.main.async {
+                    self.locationName = placemark.locality ?? "Unknown Location"
+                    print("Location Name: \(self.locationName)")
+                }
+            } else {
                 print("No placemarks found")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.locationName = placemark.locality ?? "Unknown Location"
             }
         }
+    }
+
+    private func handleSearchError(_ error: MKError) {
+        switch error.code {
+        case .placemarkNotFound:
+            print("No placemarks found.")
+        case .serverFailure:
+            print("The server encountered an error.")
+        case .loadingThrottled:
+            print("Data loading is being throttled by the system.")
+        default:
+            print("Search error: \(error.localizedDescription)")
+        }
+        locationError = true
+    }
+
+    // CLLocationManagerDelegate methods
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = getLocationAuthorizationStatus()
+        handleAuthorizationStatus(status)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            print("No location available.")
+            return
+        }
+
+        fetchWeatherAt(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        reverseGeocode(location: location)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to get location: \(error.localizedDescription)")
+        locationError = true
     }
 }
 
