@@ -74,7 +74,9 @@ struct ContentView: View {
             performLocationSearch()
         })
         .textFieldStyle(RoundedBorderTextFieldStyle())
-        .onChange(of: state.locationInput, perform: handleLocationInputChange)
+        .onChange(of: state.locationInput) { newValue, _ in
+            handleLocationInputChange(newValue)
+        }
     }
 
     private func performLocationSearch() {
