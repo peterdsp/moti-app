@@ -12,6 +12,7 @@ import SwiftUI
 class ContentViewState: ObservableObject {
     @Published var locationInput: String = ""
     @Published var showWeatherInfo: Bool = false
+    @Published var showLocationInfo: Bool = false
 }
 
 struct ContentView: View {
@@ -58,6 +59,7 @@ struct ContentView: View {
     private func locationButton() -> some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.5)) {
+                state.showLocationInfo = true
                 weatherManager.clearSelectedLocation()
                 weatherManager.fetchCurrentLocation()
                 state.showWeatherInfo = true
@@ -71,6 +73,7 @@ struct ContentView: View {
 
     private func locationTextField() -> some View {
         TextField("Search Location", text: $state.locationInput, onCommit: {
+            state.showLocationInfo = false
             performLocationSearch()
         })
         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -137,7 +140,7 @@ struct ContentView: View {
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
-                .padding(.top, weatherManager.forecast.count == 5 ? 30 : 130)
+                .padding(.top, weatherManager.forecast.count == 5 ? 30 : state.showLocationInfo ? 125 : 45)
 
             HStack(alignment: .top, spacing: 8) {
                 if let iconURL = URL(string: weatherManager.currentWeatherIcon) {

@@ -12,7 +12,7 @@ struct ForecastView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            Text("5-Day Forecast")
+            Text("\(forecast.count)-Day Forecast")
                 .font(.headline)
                 .padding(.bottom, 5)
 
