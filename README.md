@@ -1,13 +1,13 @@
 # [Moti](https://peterdsp.gumroad.com/l/moti)
 
-**Moti** is a macOS menu bar application designed with SwiftUI, leveraging WeatherApi to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 5-day weather forecast.
+**Moti** is a macOS menu bar application designed with SwiftUI, leveraging WeatherApi to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 3-day weather forecast.
 
 ![256-mac 10 35 58](https://github.com/user-attachments/assets/2706e0dc-e091-4fa2-bf47-b9cd233ac074)
 
 ## Features
 
 - **Real-Time Weather Updates**: Displays the current temperature and weather conditions directly in the menu bar.
-- **5-Day Weather Forecast**: View detailed weather predictions for the next 5 days, including high and low temperatures.
+- **3-Day Weather Forecast**: View detailed weather predictions for the next 3 days, including high and low temperatures.
 - **Weather Icons**: The menu bar icon changes based on the current weather (e.g., sun, cloud, rain, snow).
 - **Customizable Location**: Automatically fetches weather based on your current location, or set a custom location.
 - **Lightweight and Efficient**: Runs seamlessly in the background without interrupting your workflow.
@@ -20,7 +20,7 @@
 
 ### Prerequisites
 
-- macOS 13 or later
+- macOS 14 or later
 - Xcode 14 or later
 
 ### Clone the Repository
