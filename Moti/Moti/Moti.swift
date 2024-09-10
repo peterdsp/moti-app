@@ -212,23 +212,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             removeGlobalClickMonitor() // Stop monitoring clicks when popover closes
         } else {
             if let button = statusItem.button {
-                popover.behavior = isAlwaysOnTop ? .applicationDefined : .semitransient // Custom behavior based on the setting
+                popover.behavior = .semitransient // Optional, to allow better interaction
                 popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-
-                if !isAlwaysOnTop {
-                    addGlobalClickMonitor() // Start monitoring clicks outside the popover only if "Always on Top" is disabled
-                }
+                addGlobalClickMonitor() // Start monitoring clicks outside the popover
             }
         }
     }
 
     private func addGlobalClickMonitor() {
         globalClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
-            guard let self = self else { return }
-            if !self.isAlwaysOnTop {
-                self.popover.performClose(event)
-                self.removeGlobalClickMonitor() // Stop monitoring once the popover is closed
-            }
+            self?.popover.performClose(event)
+            self?.removeGlobalClickMonitor() // Stop monitoring once the popover is closed
         }
     }
 
@@ -267,14 +261,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let response = alert.runModal()
 
         if response == .alertSecondButtonReturn {
-            // The "Check for Update" button was clicked, so check Remote Config
-            checkForUpdate(remoteConfig: RemoteConfig.remoteConfig(), alert: alert, localVersion: localVersion, localBuild: localBuild)
+            // Create a new instance of NSAlert for the update check
+            let updateAlert = NSAlert()
+            updateAlert.messageText = "Checking for Updates..."
+            checkForUpdate(remoteConfig: RemoteConfig.remoteConfig(), alert: updateAlert, localVersion: localVersion, localBuild: localBuild)
         }
     }
 
     func checkForUpdate(remoteConfig: RemoteConfig, alert: NSAlert, localVersion: String, localBuild: String) {
+        // Store the index of the "Download" button
+        var downloadButtonIndex: NSApplication.ModalResponse? = nil
+
         // Fetch the version from Remote Config
-        remoteConfig.fetchAndActivate { _, error in
+        remoteConfig.fetch(withExpirationDuration: 0) { _, error in
             if let error = error {
                 print("Error fetching remote config: \(error.localizedDescription)")
                 alert.informativeText = """
@@ -283,9 +282,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Error checking for updates: \(error.localizedDescription)
                 """
             } else {
+                remoteConfig.activate(completion: nil)
                 let remoteVersion = remoteConfig["latest_app_version"].stringValue ?? "Unknown"
+                print("Fetched remote version: \(remoteVersion)") // Debugging output
 
-                // Compare local and remote versions
                 if remoteVersion != "Unknown" && self.isNewVersionAvailable(localVersion: localVersion, remoteVersion: remoteVersion) {
                     alert.informativeText = """
                     Moti is a weather app that shows local weather information.
@@ -293,6 +293,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                     A newer version (\(remoteVersion)) is available! You can download it from the link below.
                     """
+
+                    // Calculate the index for the "Download" button
+                    downloadButtonIndex = NSApplication.ModalResponse(rawValue: NSApplication.ModalResponse.alertFirstButtonReturn.rawValue + alert.buttons.count)
 
                     // Add a "Download" button
                     alert.addButton(withTitle: "Download")
@@ -306,12 +309,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
 
-            // Show the updated alert modally above all other windows
             alert.window.level = .statusBar
             let response = alert.runModal()
 
-            // If the user clicked the "Download" button, open the download link
-            if response == .alertThirdButtonReturn {
+            // Check if the user clicked the "Download" button
+            if response == downloadButtonIndex {
                 if let url = URL(string: "https://peterdsp.gumroad.com/l/moti") {
                     NSWorkspace.shared.open(url)
                 }
