@@ -31,10 +31,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var weatherManager = WeatherManager()
     var contentViewState = ContentViewState() // Shared state for ContentView
     private var cancellables = Set<AnyCancellable>()
+    private var globalClickMonitor: Any?
+    private var isAlwaysOnTop = false // Track the "Always on Top" state
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // Firebase is already initialized in the init method of MotiApp
-
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         NSApplication.shared.setActivationPolicy(.prohibited)
 
@@ -89,6 +89,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Add "Search Another Location" option
         menu.addItem(NSMenuItem(title: "Search Another Location", action: #selector(searchAnotherLocation), keyEquivalent: ""))
+
+        // Add "Always on Top" option with a checkmark toggle
+        let alwaysOnTopItem = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "")
+        alwaysOnTopItem.state = isAlwaysOnTop ? .on : .off
+        menu.addItem(alwaysOnTopItem)
+
         menu.addItem(NSMenuItem(title: "About", action: #selector(showAbout), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
@@ -96,6 +102,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
         statusItem.button?.performClick(nil) // Display the menu
         statusItem.menu = nil // Clear the menu after it's used
+    }
+
+    @objc private func toggleAlwaysOnTop() {
+        isAlwaysOnTop.toggle() // Toggle the state
+
+        // Update the popover behavior based on the new state
+        if isAlwaysOnTop {
+            removeGlobalClickMonitor() // Stop closing on outside click
+        } else {
+            addGlobalClickMonitor() // Start closing on outside click
+        }
     }
 
     @objc func refreshWeather() {
@@ -192,10 +209,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
             popover.performClose(sender)
+            removeGlobalClickMonitor() // Stop monitoring clicks when popover closes
         } else {
             if let button = statusItem.button {
+                popover.behavior = isAlwaysOnTop ? .applicationDefined : .semitransient // Custom behavior based on the setting
                 popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+
+                if !isAlwaysOnTop {
+                    addGlobalClickMonitor() // Start monitoring clicks outside the popover only if "Always on Top" is disabled
+                }
             }
+        }
+    }
+
+    private func addGlobalClickMonitor() {
+        globalClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            guard let self = self else { return }
+            if !self.isAlwaysOnTop {
+                self.popover.performClose(event)
+                self.removeGlobalClickMonitor() // Stop monitoring once the popover is closed
+            }
+        }
+    }
+
+    private func removeGlobalClickMonitor() {
+        if let monitor = globalClickMonitor {
+            NSEvent.removeMonitor(monitor)
+            globalClickMonitor = nil
         }
     }
 
@@ -292,6 +332,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         contentViewState.showWeatherInfo = false // Accessing showWeatherInfo from contentViewState
 
         if let button = statusItem.button {
+            popover.behavior = .transient // or use .semitransient for slightly different behavior
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
