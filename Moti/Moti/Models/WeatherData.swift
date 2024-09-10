@@ -55,7 +55,6 @@ struct WeatherAPIResponse: Codable {
         let uv: Double
         let gust_mph: Double
         let gust_kph: Double
-        let air_quality: AirQuality
     }
 
     struct WeatherCondition: Codable {
@@ -119,7 +118,6 @@ struct WeatherAPIResponse: Codable {
             let daily_chance_of_snow: Int
             let condition: WeatherCondition
             let uv: Double
-            let air_quality: AirQuality
         }
 
         struct Astro: Codable {
@@ -198,7 +196,6 @@ struct WeatherAPIResponse: Codable {
             let gust_mph: Double
             let gust_kph: Double
             let uv: Double
-            let air_quality: AirQuality
         }
     }
 

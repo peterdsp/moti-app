@@ -7,6 +7,7 @@
 
 import Combine
 import CoreLocation
+import FirebaseRemoteConfig
 import Foundation
 import MapKit
 
@@ -23,19 +24,39 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
     private let searchCompleter = MKLocalSearchCompleter()
-    private let apiKey = "***REMOVED***"
+    private var apiKey: String = ""
     private var timer: Timer?
 
     override init() {
         super.init()
         locationManager.delegate = self
         searchCompleter.delegate = self
+        fetchApiKeyFromRemoteConfig()
         checkLocationAuthorization()
         startWeatherUpdateTimer()
     }
 
     deinit {
         timer?.invalidate()
+    }
+
+    private func fetchApiKeyFromRemoteConfig() {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        remoteConfig.fetch { [weak self] status, error in
+            guard let self = self else { return }
+
+            if status == .success {
+                remoteConfig.activate { _, _ in
+                    DispatchQueue.main.async {
+                        self.apiKey = remoteConfig["weather_api"].stringValue ?? ""
+//                        print("Fetched API Key: \(self.apiKey)")
+                        self.fetchWeather() // Optionally, fetch weather after obtaining the API key
+                    }
+                }
+            } else {
+                print("Error fetching remote config: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
     }
 
     func startUpdatingLocation() {
@@ -104,7 +125,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     private func startWeatherUpdateTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 29 * 60, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 60 * 60, repeats: true) { [weak self] _ in
             self?.fetchWeather()
         }
     }

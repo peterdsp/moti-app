@@ -15,6 +15,11 @@ import SwiftUI
 struct MotiApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    // Initialize Firebase in the App's initializer
+    init() {
+        FirebaseApp.configure() // Ensure Firebase is configured immediately
+    }
+
     var body: some Scene {
         Settings { EmptyView() }
     }
@@ -28,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        FirebaseApp.configure() // Initialize Firebase
+        // Firebase is already initialized in the init method of MotiApp
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         NSApplication.shared.setActivationPolicy(.prohibited)

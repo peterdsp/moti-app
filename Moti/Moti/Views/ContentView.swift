@@ -130,11 +130,12 @@ struct ContentView: View {
     @ViewBuilder
     private func weatherInfoView() -> some View {
         VStack(spacing: 5) {
+            // Fixed top part with location name and weather info
             Text(weatherManager.locationName)
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
-                .padding(.top, 30)
+                .padding(.top, weatherManager.forecast.count == 5 ? 30 : 130)
 
             HStack(alignment: .top, spacing: 8) {
                 if let iconURL = URL(string: weatherManager.currentWeatherIcon) {
@@ -152,15 +153,18 @@ struct ContentView: View {
                     .fontWeight(.light)
                     .foregroundColor(.primary)
             }
-        }
 
-        ForecastView(forecast: weatherManager.forecast)
-            .padding(.top, 5)
+            ForecastView(forecast: weatherManager.forecast)
+                .padding(.top, 5)
+                .fixedSize(horizontal: false, vertical: true) // Ensure no extra vertical space is taken
+        }
+        .frame(maxHeight: .infinity, alignment: .top) // Align everything to the top
+        .padding(.bottom, 0) // Remove any padding at the bottom
     }
 
     private func calculateHeight() -> CGFloat {
         if state.showWeatherInfo {
-            return 355
+            return weatherManager.forecast.count == 5 ? 340 : 275
         } else if shouldShowSuggestions {
             return 150
         } else {
