@@ -21,6 +21,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var locationError: Bool = false
     @Published var locationSuggestions: [MKLocalSearchCompletion] = []
     @Published var locationServicesEnabled: Bool = false
+    @Published var showLocationSettingsAlert: Bool = false  // New property
 
     private let locationManager = CLLocationManager()
     private let searchCompleter = MKLocalSearchCompleter()
@@ -49,12 +50,13 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 remoteConfig.activate { _, _ in
                     DispatchQueue.main.async {
                         self.apiKey = remoteConfig["weather_api"].stringValue ?? ""
-//                        print("Fetched API Key: \(self.apiKey)")
-                        self.fetchWeather() // Optionally, fetch weather after obtaining the API key
+                        self.fetchWeather()  // Optionally, fetch weather after obtaining the API key
                     }
                 }
             } else {
-                print("Error fetching remote config: \(error?.localizedDescription ?? "Unknown error")")
+                print(
+                    "Error fetching remote config: \(error?.localizedDescription ?? "Unknown error")"
+                )
             }
         }
     }
@@ -80,10 +82,12 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
 
         if let selectedLocation = selectedLocation {
-            fetchWeatherAt(latitude: selectedLocation.latitude, longitude: selectedLocation.longitude)
+            fetchWeatherAt(
+                latitude: selectedLocation.latitude, longitude: selectedLocation.longitude)
         } else if let location = locationManager.location {
-            fetchWeatherAt(latitude: round(location.coordinate.latitude * 100) / 100.0,
-                           longitude: round(location.coordinate.longitude * 100) / 100.0)
+            fetchWeatherAt(
+                latitude: round(location.coordinate.latitude * 100) / 100.0,
+                longitude: round(location.coordinate.longitude * 100) / 100.0)
         } else {
             locationError = true
             print("No valid location found")
@@ -106,8 +110,9 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 DispatchQueue.main.async {
                     self.selectedLocation = location.coordinate
                     self.locationName = mapItem.name ?? locationName
-                    self.fetchWeatherAt(latitude: round(location.coordinate.latitude * 100) / 100.0,
-                                        longitude: round(location.coordinate.longitude * 100) / 100.0)
+                    self.fetchWeatherAt(
+                        latitude: round(location.coordinate.latitude * 100) / 100.0,
+                        longitude: round(location.coordinate.longitude * 100) / 100.0)
                 }
             } else {
                 self.locationError = true
@@ -130,7 +135,7 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-    private func checkLocationAuthorization() {
+    func checkLocationAuthorization() {
         let authorizationStatus = getLocationAuthorizationStatus()
         handleAuthorizationStatus(authorizationStatus)
     }
@@ -150,6 +155,9 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         case .restricted, .denied:
             locationError = true
             print("Location services are restricted or denied. Please enable them in Settings.")
+            DispatchQueue.main.async {
+                self.showLocationSettingsAlert = true
+            }
         case .authorizedWhenInUse, .authorizedAlways:
             locationError = false
             locationManager.startUpdatingLocation()
@@ -160,7 +168,8 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     private func fetchWeatherAt(latitude: Double, longitude: Double) {
-        let weatherURLString = "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(latitude),\(longitude)&days=5&aqi=yes"
+        let weatherURLString =
+            "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(latitude),\(longitude)&days=5&aqi=yes"
         guard let weatherURL = URL(string: weatherURLString) else {
             print("Error: Invalid URL")
             return
@@ -208,7 +217,8 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 self.currentWeatherIcon = "https:" + decodedData.current.condition.icon
                 self.forecast = decodedData.forecast.forecastday.map { forecastDay in
                     DayForecast(
-                        date: Date(timeIntervalSince1970: TimeInterval(forecastDay.date_epoch)).formatted(.dateTime.weekday()),
+                        date: Date(timeIntervalSince1970: TimeInterval(forecastDay.date_epoch))
+                            .formatted(.dateTime.weekday()),
                         weatherIcon: "https:" + forecastDay.day.condition.icon,
                         highTemp: forecastDay.day.maxtemp_c,
                         lowTemp: forecastDay.day.mintemp_c
@@ -264,7 +274,8 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             return
         }
 
-        fetchWeatherAt(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        fetchWeatherAt(
+            latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         reverseGeocode(location: location)
     }
 

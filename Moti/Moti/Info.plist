@@ -9,13 +9,18 @@
     <key>CFBundleName</key>
     <string>Tempethéra</string>
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
-    <key>LSUIElement</key>
+    <string>1.0.3</string>
+
+    <!-- Remove LSUIElement and LSBackgroundOnly for testing -->
+    <!-- <key>LSUIElement</key>
     <string>1</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
+    <key>LSBackgroundOnly</key>
+    <string>1</string> -->
+
+    <!-- Add NSLocationUsageDescription -->
+    <key>NSLocationUsageDescription</key>
     <string>Tempethéra requires access to your location to provide accurate weather information.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Tempethéra requires access to your location even when the app is in the background.</string>
+
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSExceptionDomains</key>
@@ -31,9 +36,5 @@
             </dict>
         </dict>
     </dict>
-    <key>LSUIElement</key>
-    <string>1</string>
-    <key>LSBackgroundOnly</key>
-    <string>1</string>
 </dict>
 </plist>

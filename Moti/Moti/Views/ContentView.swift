@@ -5,6 +5,7 @@
 //  Created by Petros Dhespollari on 25/8/24.
 //
 
+import AppKit  // Import AppKit to use NSWorkspace for macOS
 import Cocoa
 import MapKit
 import SwiftUI
@@ -16,7 +17,7 @@ class ContentViewState: ObservableObject {
 }
 
 struct ContentView: View {
-    @ObservedObject var weatherManager: WeatherManager
+    @ObservedObject var weatherManager = WeatherManager()
     @ObservedObject var state: ContentViewState
 
     var body: some View {
@@ -39,6 +40,24 @@ struct ContentView: View {
                 weatherManager.fetchWeather()
             }
         }
+        .alert(isPresented: $weatherManager.showLocationSettingsAlert) {
+            Alert(
+                title: Text("Location Access Denied"),
+                message: Text(
+                    "Please enable location services in System Preferences to get weather updates."),
+                primaryButton: .default(
+                    Text("Open System Preferences"),
+                    action: {
+                        if let url = URL(
+                            string:
+                                "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"
+                        ) {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }),
+                secondaryButton: .cancel()
+            )
+        }
     }
 
     private var shouldShowSuggestions: Bool {
@@ -58,11 +77,14 @@ struct ContentView: View {
 
     private func locationButton() -> some View {
         Button(action: {
-            withAnimation(.easeInOut(duration: 0.5)) {
-                state.showLocationInfo = true
-                weatherManager.clearSelectedLocation()
-                weatherManager.fetchCurrentLocation()
-                state.showWeatherInfo = true
+            weatherManager.checkLocationAuthorization()
+            if !weatherManager.locationError {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    state.showLocationInfo = true
+                    weatherManager.clearSelectedLocation()
+                    weatherManager.fetchCurrentLocation()
+                    state.showWeatherInfo = true
+                }
             }
         }) {
             Image(systemName: "mappin.and.ellipse")
@@ -72,10 +94,13 @@ struct ContentView: View {
     }
 
     private func locationTextField() -> some View {
-        TextField("Search Location", text: $state.locationInput, onCommit: {
-            state.showLocationInfo = false
-            performLocationSearch()
-        })
+        TextField(
+            "Search Location", text: $state.locationInput,
+            onCommit: {
+                state.showLocationInfo = false
+                performLocationSearch()
+            }
+        )
         .textFieldStyle(RoundedBorderTextFieldStyle())
         .onChange(of: state.locationInput) { newValue, _ in
             handleLocationInputChange(newValue)
@@ -127,7 +152,7 @@ struct ContentView: View {
     private func selectLocationSuggestion(_ suggestion: MKLocalSearchCompletion) {
         withAnimation(.easeInOut(duration: 0.5)) {
             state.locationInput = suggestion.title
-            weatherManager.geocodeLocation(locationName: suggestion.title)
+            weatherManager.geocodeLocation(locationName: suggestion .title)
             state.showWeatherInfo = true
         }
     }
@@ -135,12 +160,12 @@ struct ContentView: View {
     @ViewBuilder
     private func weatherInfoView() -> some View {
         VStack(spacing: 5) {
-            // Fixed top part with location name and weather info
             Text(weatherManager.locationName)
-                .font(.title3)
+                .font(.title)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
-                .padding(.top, weatherManager.forecast.count == 5 ? 30 : state.showLocationInfo ? 125 : 45)
+                .padding(.top, 15)
+                .textCase(.uppercase)
 
             HStack(alignment: .top, spacing: 8) {
                 if let iconURL = URL(string: weatherManager.currentWeatherIcon) {
@@ -161,15 +186,15 @@ struct ContentView: View {
 
             ForecastView(forecast: weatherManager.forecast)
                 .padding(.top, 5)
-                .fixedSize(horizontal: false, vertical: true) // Ensure no extra vertical space is taken
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .frame(maxHeight: .infinity, alignment: .top) // Align everything to the top
-        .padding(.bottom, 0) // Remove any padding at the bottom
+        .frame(maxHeight: 300, alignment: .top)  // Adjusted height to cut off the bottom slightly
+        .padding(.bottom, -10)  // Negative padding to slightly reduce bottom space
     }
 
     private func calculateHeight() -> CGFloat {
         if state.showWeatherInfo {
-            return weatherManager.forecast.count == 5 ? 340 : 275
+            return 300  // Adjusted height to match the reduced view size
         } else if shouldShowSuggestions {
             return 150
         } else {
