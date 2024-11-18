@@ -90,7 +90,7 @@ struct WeatherAPIResponse: Codable {
     }
 
     struct DailyForecast: Codable, Identifiable {
-        var id: UUID { UUID() } // Computed property to generate a new UUID each time
+        var id: UUID { UUID() }  // Computed property to generate a new UUID each time
         let date: String
         let date_epoch: Int
         let day: DayWeather
@@ -141,11 +141,17 @@ struct WeatherAPIResponse: Codable {
                 moon_phase = try container.decode(String.self, forKey: .moon_phase)
 
                 // Try to decode moon_illumination as a String first, then as a Number if that fails
-                if let illuminationString = try? container.decode(String.self, forKey: .moon_illumination) {
+                if let illuminationString = try? container.decode(
+                    String.self, forKey: .moon_illumination)
+                {
                     moon_illumination = illuminationString
-                } else if let illuminationNumber = try? container.decode(Int.self, forKey: .moon_illumination) {
+                } else if let illuminationNumber = try? container.decode(
+                    Int.self, forKey: .moon_illumination)
+                {
                     moon_illumination = String(illuminationNumber)
-                } else if let illuminationDouble = try? container.decode(Double.self, forKey: .moon_illumination) {
+                } else if let illuminationDouble = try? container.decode(
+                    Double.self, forKey: .moon_illumination)
+                {
                     moon_illumination = String(illuminationDouble)
                 } else {
                     throw DecodingError.typeMismatch(
@@ -160,7 +166,7 @@ struct WeatherAPIResponse: Codable {
         }
 
         struct HourlyForecast: Codable, Identifiable {
-            var id: UUID { UUID() } // Computed property to generate a new UUID each time
+            var id: UUID { UUID() }  // Computed property to generate a new UUID each time
 
             let time_epoch: Int
             let time: String
@@ -200,7 +206,7 @@ struct WeatherAPIResponse: Codable {
     }
 
     struct Alerts: Codable {
-        let alert: [Alert] // This can be expanded with more details about the alerts if needed
+        let alert: [Alert]  // This can be expanded with more details about the alerts if needed
     }
 
     struct Alert: Codable {
@@ -210,7 +216,7 @@ struct WeatherAPIResponse: Codable {
 
 // Updated DayForecast struct for use in SwiftUI views
 struct DayForecast: Codable, Identifiable {
-    var id: UUID { UUID() } // Computed property to generate a new UUID each time
+    var id: UUID { UUID() }  // Computed property to generate a new UUID each time
     let date: String
     let weatherIcon: String
     let highTemp: Double
@@ -238,5 +244,24 @@ struct DayForecast: Codable, Identifiable {
         self.weatherIcon = weatherIcon
         self.highTemp = highTemp
         self.lowTemp = lowTemp
+    }
+}
+
+extension DayForecast {
+    /// Formats the `date` string to `dd/MM` format.
+    func formattedDate(format: String = "dd/MM") -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"  // Input date format from the API
+        inputFormatter.locale = Locale(identifier: Locale.current.identifier)
+
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = format  // Desired output format
+        outputFormatter.locale = Locale.current
+
+        if let parsedDate = inputFormatter.date(from: date) {
+            return outputFormatter.string(from: parsedDate)
+        } else {
+            return date  // Return the original date if parsing fails
+        }
     }
 }

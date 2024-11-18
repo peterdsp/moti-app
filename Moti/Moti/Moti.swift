@@ -373,7 +373,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         default:
             break
         }
-        print("Current language set to: \(currentLanguage)")  // Print the current language
+        // print("Current language set to: \(currentLanguage)")  // Print the current language
         updateLanguage()
     }
 

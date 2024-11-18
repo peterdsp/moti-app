@@ -218,7 +218,6 @@
 			knownRegions = (
 				en,
 				Base,
-				shq,
 				el,
 				sq,
 			);

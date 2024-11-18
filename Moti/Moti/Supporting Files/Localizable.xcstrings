@@ -9,58 +9,16 @@
             "value" : "%.0f°C"
           }
         },
-        "sq" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%.0f°C"
           }
-        }
-      }
-    },
-    "%lld-Day Forecast" : {
-      "localizations" : {
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld-Πρόγνωση Ημέρας"
-          }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld-Parashikimi I Ditës"
-          }
-        }
-      }
-    },
-    "▲ %.0f°C" : {
-      "localizations" : {
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "▲ %.0f°C"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "▲ %.0f°C"
-          }
-        }
-      }
-    },
-    "▼ %.0f°C" : {
-      "localizations" : {
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "▼ %.0f°C"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "▼ %.0f°C"
+            "value" : "%.0f°C"
           }
         }
       }
@@ -111,12 +69,62 @@
         }
       }
     },
+    "day_forecast" : {
+      "localizations" : {
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πρόβλεψη για τις επόμενες τρεις ημέρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forecast for the next three days"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parashikimi për tre ditët e ardhshme"
+          }
+        }
+      }
+    },
+    "high_temp" : {
+      "localizations" : {
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▲ %d°C"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▲ %d°C"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▲ %d°C"
+          }
+        }
+      }
+    },
     "Location Access Denied" : {
       "localizations" : {
         "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Άρνηση Πρόσβασης Τοποθεσίας"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Access Denied"
           }
         },
         "sq" : {
@@ -127,12 +135,40 @@
         }
       }
     },
+    "low_temp" : {
+      "localizations" : {
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▼ %d°C"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▼ %d°C"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "▼ %d°C"
+          }
+        }
+      }
+    },
     "Open System Preferences" : {
       "localizations" : {
         "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ανοίξτε τις Προτιμήσεις Συστήματος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open System Preferences"
           }
         },
         "sq" : {
@@ -149,6 +185,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ενεργοποιήστε τις υπηρεσίες τοποθεσίας στις Προτιμήσεις Συστήματος για να λαμβάνετε ενημερώσεις για τον καιρό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enable location services in System Preferences to get weather updates."
           }
         },
         "sq" : {
@@ -209,14 +251,20 @@
       "localizations" : {
         "el" : {
           "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "🔍"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
             "state" : "translated",
-            "value" : "Αναζήτηση Τοποθεσίας"
+            "value" : "🔍"
           }
         },
         "sq" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kërko Vendndodhja"
+            "state" : "needs_review",
+            "value" : "🔍"
           }
         }
       }

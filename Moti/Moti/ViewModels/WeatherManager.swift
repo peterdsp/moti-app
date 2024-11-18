@@ -216,13 +216,29 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 self.currentTemperature = decodedData.current.temp_c
                 self.currentWeatherIcon = "https:" + decodedData.current.condition.icon
                 self.forecast = decodedData.forecast.forecastday.map { forecastDay in
-                    DayForecast(
-                        date: Date(timeIntervalSince1970: TimeInterval(forecastDay.date_epoch))
-                            .formatted(.dateTime.weekday()),
-                        weatherIcon: "https:" + forecastDay.day.condition.icon,
-                        highTemp: forecastDay.day.maxtemp_c,
-                        lowTemp: forecastDay.day.mintemp_c
-                    )
+                    // Use DateFormatter to format the date as dd/MM
+                    let inputFormatter = DateFormatter()
+                    inputFormatter.dateFormat = "yyyy-MM-dd"
+                    let outputFormatter = DateFormatter()
+                    outputFormatter.dateFormat = "dd/MM"
+
+                    if let parsedDate = inputFormatter.date(from: forecastDay.date) {
+                        let formattedDate = outputFormatter.string(from: parsedDate)
+                        return DayForecast(
+                            date: formattedDate,
+                            weatherIcon: "https:" + forecastDay.day.condition.icon,
+                            highTemp: forecastDay.day.maxtemp_c,
+                            lowTemp: forecastDay.day.mintemp_c
+                        )
+                    } else {
+                        // Fallback to original date string if parsing fails
+                        return DayForecast(
+                            date: forecastDay.date,
+                            weatherIcon: "https:" + forecastDay.day.condition.icon,
+                            highTemp: forecastDay.day.maxtemp_c,
+                            lowTemp: forecastDay.day.mintemp_c
+                        )
+                    }
                 }
             }
         } catch {
@@ -231,7 +247,11 @@ class WeatherManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     private func reverseGeocode(location: CLLocation) {
-        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+        let geocoder = CLGeocoder()
+        let preferredLocale = Locale(identifier: "en_US")
+
+        geocoder.reverseGeocodeLocation(location, preferredLocale: preferredLocale) {
+            placemarks, error in
             if let error = error {
                 print("Reverse geocoding failed: \(error.localizedDescription)")
                 return

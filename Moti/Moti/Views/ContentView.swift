@@ -5,7 +5,7 @@
 //  Created by Petros Dhespollari on 25/8/24.
 //
 
-import AppKit  // Import AppKit to use NSWorkspace for macOS
+import AppKit
 import Cocoa
 import MapKit
 import SwiftUI
@@ -19,6 +19,7 @@ class ContentViewState: ObservableObject {
 struct ContentView: View {
     @ObservedObject var weatherManager = WeatherManager()
     @ObservedObject var state: ContentViewState
+    @Environment(\.locale) var locale
 
     var body: some View {
         VStack(spacing: 0) {
@@ -152,7 +153,7 @@ struct ContentView: View {
     private func selectLocationSuggestion(_ suggestion: MKLocalSearchCompletion) {
         withAnimation(.easeInOut(duration: 0.5)) {
             state.locationInput = suggestion.title
-            weatherManager.geocodeLocation(locationName: suggestion .title)
+            weatherManager.geocodeLocation(locationName: suggestion.title)
             state.showWeatherInfo = true
         }
     }
@@ -179,7 +180,7 @@ struct ContentView: View {
                     }
                 }
                 Text("\(weatherManager.currentTemperature, specifier: "%.0f")°C")
-                    .font(.system(size: 45))
+                    .font(.system(size: 50))
                     .fontWeight(.light)
                     .foregroundColor(.primary)
             }
