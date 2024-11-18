@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AD9D0392CE6104D00B9873A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9D0382CE6104D00B9873A /* Localizable.xcstrings */; };
 		2C062A512C7A97CF0010D9F4 /* Moti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A502C7A97CF0010D9F4 /* Moti.swift */; };
 		2C062A532C7A97CF0010D9F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A522C7A97CF0010D9F4 /* ContentView.swift */; };
 		2C062A552C7A97CF0010D9F4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A542C7A97CF0010D9F4 /* Item.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		1CD041F23F0293042067A6C1 /* Pods-Moti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moti.release.xcconfig"; path = "Target Support Files/Pods-Moti/Pods-Moti.release.xcconfig"; sourceTree = "<group>"; };
+		2AD9D0382CE6104D00B9873A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2C062A4D2C7A97CF0010D9F4 /* Moti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C062A502C7A97CF0010D9F4 /* Moti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moti.swift; sourceTree = "<group>"; };
 		2C062A522C7A97CF0010D9F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		2C062A6C2C7AA2FF0010D9F4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2AD9D0382CE6104D00B9873A /* Localizable.xcstrings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -201,7 +204,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					2C062A4C2C7A97CF0010D9F4 = {
 						CreatedOnToolsVersion = 15.4;
@@ -215,6 +218,9 @@
 			knownRegions = (
 				en,
 				Base,
+				shq,
+				el,
+				sq,
 			);
 			mainGroup = 2C062A442C7A97CF0010D9F4;
 			productRefGroup = 2C062A4E2C7A97CF0010D9F4 /* Products */;
@@ -233,6 +239,7 @@
 			files = (
 				2C062A5A2C7A97D00010D9F4 /* Preview Assets.xcassets in Resources */,
 				2CADE6792C833A17001FE1C2 /* GoogleService-Info.plist in Resources */,
+				2AD9D0392CE6104D00B9873A /* Localizable.xcstrings in Resources */,
 				2C062A572C7A97D00010D9F4 /* Assets.xcassets in Resources */,
 				2C062A662C7A9FCB0010D9F4 /* Info.plist in Resources */,
 			);
@@ -333,6 +340,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -359,6 +367,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -397,6 +406,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -416,6 +426,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -430,6 +441,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Moti/Preview Content\"";
 				DEVELOPMENT_TEAM = R8JF2W45R3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -463,6 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Moti/Preview Content\"";
 				DEVELOPMENT_TEAM = R8JF2W45R3;
 				ENABLE_HARDENED_RUNTIME = YES;

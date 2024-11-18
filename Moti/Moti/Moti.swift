@@ -32,6 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables = Set<AnyCancellable>()
     private var globalClickMonitor: Any?
     private var isAlwaysOnTop = false
+    @Published var currentLanguage: String = "en"
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupStatusItem()
@@ -85,19 +86,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showContextMenu(_ sender: NSStatusBarButton) {
         let menu = NSMenu()
-        menu.addItem(
-            NSMenuItem(title: "Refresh", action: #selector(refreshWeather), keyEquivalent: "r"))
+
+        // Refresh option
         menu.addItem(
             NSMenuItem(
-                title: "Search Another Location", action: #selector(searchAnotherLocation),
+                title: NSLocalizedString("refresh", comment: ""), action: #selector(refreshWeather),
+                keyEquivalent: "r"))
+
+        // Search Another Location option
+        menu.addItem(
+            NSMenuItem(
+                title: NSLocalizedString("search_another_location", comment: ""),
+                action: #selector(searchAnotherLocation),
                 keyEquivalent: ""))
-        let alwaysOnTopItem = NSMenuItem(
-            title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "")
-        alwaysOnTopItem.state = isAlwaysOnTop ? .on : .off
-        menu.addItem(alwaysOnTopItem)
-        menu.addItem(NSMenuItem(title: "About", action: #selector(showAbout), keyEquivalent: ""))
+
+        // Language submenu with emoji flags
+        let languageMenuItem = NSMenuItem(
+            title: NSLocalizedString("change_language", comment: ""), action: nil, keyEquivalent: ""
+        )
+        let languageSubMenu = NSMenu()
+
+        let englishItem = NSMenuItem(
+            title: "English", action: #selector(setLanguage(_:)), keyEquivalent: "")
+        englishItem.tag = 0
+
+        let greekItem = NSMenuItem(
+            title: "Ελληνικά", action: #selector(setLanguage(_:)), keyEquivalent: "")
+        greekItem.tag = 1
+
+        let albanianItem = NSMenuItem(
+            title: "Shqip", action: #selector(setLanguage(_:)), keyEquivalent: "")
+        albanianItem.tag = 2
+
+        languageSubMenu.addItem(englishItem)
+        languageSubMenu.addItem(greekItem)
+        languageSubMenu.addItem(albanianItem)
+        languageMenuItem.submenu = languageSubMenu
+        menu.addItem(languageMenuItem)
+
+        // About and Quit options
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
+        menu.addItem(
+            NSMenuItem(
+                title: NSLocalizedString("about", comment: ""), action: #selector(showAbout),
+                keyEquivalent: ""))
+        menu.addItem(
+            NSMenuItem(
+                title: NSLocalizedString("quit", comment: ""), action: #selector(quitApp),
+                keyEquivalent: "q"))
+
         statusItem.menu = menu
         statusItem.button?.performClick(nil)
         statusItem.menu = nil
@@ -162,11 +199,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func loadImage(from url: URL, completion: @escaping (NSImage) -> Void) {
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url), let image = NSImage(data: data) {
-                DispatchQueue.main.async { completion(image) }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let image = NSImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else if let error = error {
+                print("Failed to load image from \(url): \(error.localizedDescription)")
             }
         }
+        task.priority = URLSessionTask.highPriority  // Set a high priority if necessary
+        task.resume()
     }
 
     private func resizeImage(image: NSImage, toFit targetSize: CGSize) -> NSImage {
@@ -319,6 +362,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    @objc private func setLanguage(_ sender: NSMenuItem) {
+        switch sender.tag {
+        case 0:
+            currentLanguage = "en"
+        case 1:
+            currentLanguage = "el"
+        case 2:
+            currentLanguage = "sq"
+        default:
+            break
+        }
+        print("Current language set to: \(currentLanguage)")  // Print the current language
+        updateLanguage()
+    }
+
+    private func updateLanguage() {
+        print("Updating UI language to: \(currentLanguage)")  // Print the language during update
+        Bundle.setLanguage(currentLanguage)
+
+        // Reload the app's UI with the new language setting
+        popover.contentViewController = NSHostingController(
+            rootView: ContentView(weatherManager: weatherManager, state: contentViewState))
+    }
+
     @objc func quitApp() {
         NSApp.terminate(nil)
     }
@@ -335,5 +402,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             popover.behavior = .transient  // or use .semitransient for slightly different behavior
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
+    }
+}
+
+// MARK: - Bundle Extension for Language Switching
+
+extension Bundle {
+    private static var onLanguageDispatchOnce: () -> Void = {
+        object_setClass(Bundle.main, LanguageBundle.self)
+    }
+
+    static func setLanguage(_ language: String) {
+        onLanguageDispatchOnce()
+        UserDefaults.standard.set([language], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+    }
+}
+
+private class LanguageBundle: Bundle, @unchecked Sendable {
+    override func localizedString(forKey key: String, value: String?, table tableName: String?)
+        -> String
+    {
+        let language = UserDefaults.standard.stringArray(forKey: "AppleLanguages")?.first ?? "en"
+
+        // Check if the language-specific bundle path is available
+        guard let bundlePath = Bundle.main.path(forResource: language, ofType: "lproj"),
+            let languageBundle = Bundle(path: bundlePath)
+        else {
+            print("Fallback to main bundle for language: \(language)")  // Debugging output
+            return super.localizedString(forKey: key, value: value, table: tableName)
+        }
+
+        return languageBundle.localizedString(forKey: key, value: value, table: tableName)
     }
 }
