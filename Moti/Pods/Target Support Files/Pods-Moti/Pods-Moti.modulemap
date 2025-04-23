@@ -1,6 +1,0 @@
-framework module Pods_Moti {
-  umbrella header "Pods-Moti-umbrella.h"
-
-  export *
-  module * { export * }
-}

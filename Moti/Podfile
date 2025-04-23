@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :macos, '14.0'
 
-target 'Moti' do
+target 'myMoti' do
   use_frameworks!
 
   # Firebase Core is required for using any other Firebase services

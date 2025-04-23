@@ -1,6 +1,6 @@
 //
-//  MotiApp.swift
-//  Moti
+//  myMotiApp.swift
+//  myMoti
 //
 //  Created by Petros Dhespollari on 25/8/24.
 //
@@ -12,7 +12,7 @@ import FirebaseRemoteConfig
 import SwiftUI
 
 @main
-struct MotiApp: App {
+struct myMotiApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
@@ -266,7 +266,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func showAbout() {
         // Create the alert
         let alert = NSAlert()
-        alert.messageText = "About Moti"
+        alert.messageText = "About myMoti"
 
         // Retrieve the app version from the Info.plist
         let localVersion =
@@ -275,7 +275,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Initial informative text
         alert.informativeText =
-            "Moti is a weather app that shows local weather information.\nVersion: \(localVersion)"
+            "myMoti is a weather app that shows local weather information.\nVersion: \(localVersion)"
 
         alert.alertStyle = .informational
 
@@ -313,7 +313,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let error = error {
                 print("Error fetching remote config: \(error.localizedDescription)")
                 alert.informativeText = """
-                    Moti is a weather app that shows local weather information.
+                    myMoti is a weather app that shows local weather information.
                     Version: \(localVersion)
                     Error checking for updates: \(error.localizedDescription)
                     """
@@ -327,7 +327,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         localVersion: localVersion, remoteVersion: remoteVersion)
                 {
                     alert.informativeText = """
-                        Moti is a weather app that shows local weather information.
+                        myMoti is a weather app that shows local weather information.
                         Version: \(localVersion)
 
                         A newer version (\(remoteVersion)) is available! You can download it from the link below.
@@ -342,7 +342,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     alert.addButton(withTitle: "Download")
                 } else {
                     alert.informativeText = """
-                        Moti is a weather app that shows local weather information.
+                        myMoti is a weather app that shows local weather information.
                         Version: \(localVersion)
 
                         You have the latest version.

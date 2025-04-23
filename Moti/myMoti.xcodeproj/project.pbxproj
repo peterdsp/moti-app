@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2AD9D0392CE6104D00B9873A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9D0382CE6104D00B9873A /* Localizable.xcstrings */; };
-		2C062A512C7A97CF0010D9F4 /* Moti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A502C7A97CF0010D9F4 /* Moti.swift */; };
+		2C062A512C7A97CF0010D9F4 /* myMoti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A502C7A97CF0010D9F4 /* myMoti.swift */; };
 		2C062A532C7A97CF0010D9F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A522C7A97CF0010D9F4 /* ContentView.swift */; };
 		2C062A552C7A97CF0010D9F4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A542C7A97CF0010D9F4 /* Item.swift */; };
 		2C062A572C7A97D00010D9F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C062A562C7A97D00010D9F4 /* Assets.xcassets */; };
@@ -17,8 +17,8 @@
 		2C062A642C7A9D5C0010D9F4 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C062A632C7A9D5C0010D9F4 /* WeatherData.swift */; };
 		2C062A662C7A9FCB0010D9F4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C062A652C7A9FCB0010D9F4 /* Info.plist */; };
 		2C988C3D2C7C9A45007EBB34 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C988C3C2C7C9A45007EBB34 /* ForecastView.swift */; };
-		2CADE6752C83389F001FE1C2 /* Pods_Moti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD75E13AEF1EEB8B30140163 /* Pods_Moti.framework */; };
-		2CADE6762C83389F001FE1C2 /* Pods_Moti.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD75E13AEF1EEB8B30140163 /* Pods_Moti.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2CADE6752C83389F001FE1C2 /* Pods_myMoti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD75E13AEF1EEB8B30140163 /* Pods_myMoti.framework */; };
+		2CADE6762C83389F001FE1C2 /* Pods_myMoti.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD75E13AEF1EEB8B30140163 /* Pods_myMoti.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2CADE6792C833A17001FE1C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CADE6782C833A17001FE1C2 /* GoogleService-Info.plist */; };
 		2CADE67B2C833C12001FE1C2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CADE67A2C833C12001FE1C2 /* AdSupport.framework */; };
 /* End PBXBuildFile section */
@@ -30,7 +30,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2CADE6762C83389F001FE1C2 /* Pods_Moti.framework in Embed Frameworks */,
+				2CADE6762C83389F001FE1C2 /* Pods_myMoti.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,23 +38,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1CD041F23F0293042067A6C1 /* Pods-Moti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moti.release.xcconfig"; path = "Target Support Files/Pods-Moti/Pods-Moti.release.xcconfig"; sourceTree = "<group>"; };
+		1CD041F23F0293042067A6C1 /* Pods-myMoti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myMoti.release.xcconfig"; path = "Target Support Files/Pods-myMoti/Pods-myMoti.release.xcconfig"; sourceTree = "<group>"; };
 		2AD9D0382CE6104D00B9873A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		2C062A4D2C7A97CF0010D9F4 /* Moti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moti.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C062A502C7A97CF0010D9F4 /* Moti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moti.swift; sourceTree = "<group>"; };
+		2C062A4D2C7A97CF0010D9F4 /* myMoti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myMoti.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C062A502C7A97CF0010D9F4 /* myMoti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myMoti.swift; sourceTree = "<group>"; };
 		2C062A522C7A97CF0010D9F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2C062A542C7A97CF0010D9F4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2C062A562C7A97D00010D9F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C062A592C7A97D00010D9F4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2C062A5B2C7A97D00010D9F4 /* Moti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moti.entitlements; sourceTree = "<group>"; };
+		2C062A5B2C7A97D00010D9F4 /* myMoti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = myMoti.entitlements; sourceTree = "<group>"; };
 		2C062A612C7A9AE70010D9F4 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		2C062A632C7A9D5C0010D9F4 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		2C062A652C7A9FCB0010D9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C988C3C2C7C9A45007EBB34 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		2CADE6782C833A17001FE1C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CADE67A2C833C12001FE1C2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		310E90E3176E9185697C02E8 /* Pods-Moti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moti.debug.xcconfig"; path = "Target Support Files/Pods-Moti/Pods-Moti.debug.xcconfig"; sourceTree = "<group>"; };
-		BD75E13AEF1EEB8B30140163 /* Pods_Moti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		310E90E3176E9185697C02E8 /* Pods-myMoti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myMoti.debug.xcconfig"; path = "Target Support Files/Pods-myMoti/Pods-myMoti.debug.xcconfig"; sourceTree = "<group>"; };
+		BD75E13AEF1EEB8B30140163 /* Pods_myMoti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myMoti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CADE6752C83389F001FE1C2 /* Pods_Moti.framework in Frameworks */,
+				2CADE6752C83389F001FE1C2 /* Pods_myMoti.framework in Frameworks */,
 				2CADE67B2C833C12001FE1C2 /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				2CADE67A2C833C12001FE1C2 /* AdSupport.framework */,
-				BD75E13AEF1EEB8B30140163 /* Pods_Moti.framework */,
+				BD75E13AEF1EEB8B30140163 /* Pods_myMoti.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				2CADE6782C833A17001FE1C2 /* GoogleService-Info.plist */,
-				2C062A4F2C7A97CF0010D9F4 /* Moti */,
+				2C062A4F2C7A97CF0010D9F4 /* myMoti */,
 				2C062A4E2C7A97CF0010D9F4 /* Products */,
 				595460F01F06B55AFF17E84F /* Pods */,
 				1E7E0A512A134CE9E0ADBC2C /* Frameworks */,
@@ -93,17 +93,17 @@
 		2C062A4E2C7A97CF0010D9F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C062A4D2C7A97CF0010D9F4 /* Moti.app */,
+				2C062A4D2C7A97CF0010D9F4 /* myMoti.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C062A4F2C7A97CF0010D9F4 /* Moti */ = {
+		2C062A4F2C7A97CF0010D9F4 /* myMoti */ = {
 			isa = PBXGroup;
 			children = (
 				2C062A652C7A9FCB0010D9F4 /* Info.plist */,
-				2C062A502C7A97CF0010D9F4 /* Moti.swift */,
-				2C062A5B2C7A97D00010D9F4 /* Moti.entitlements */,
+				2C062A502C7A97CF0010D9F4 /* myMoti.swift */,
+				2C062A5B2C7A97D00010D9F4 /* myMoti.entitlements */,
 				2C062A682C7AA2CF0010D9F4 /* Views */,
 				2C062A692C7AA2DD0010D9F4 /* ViewModels */,
 				2C062A6A2C7AA2E60010D9F4 /* Models */,
@@ -111,7 +111,7 @@
 				2C062A6C2C7AA2FF0010D9F4 /* Supporting Files */,
 				2C062A582C7A97D00010D9F4 /* Preview Content */,
 			);
-			path = Moti;
+			path = myMoti;
 			sourceTree = "<group>";
 		};
 		2C062A582C7A97D00010D9F4 /* Preview Content */ = {
@@ -167,8 +167,8 @@
 		595460F01F06B55AFF17E84F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				310E90E3176E9185697C02E8 /* Pods-Moti.debug.xcconfig */,
-				1CD041F23F0293042067A6C1 /* Pods-Moti.release.xcconfig */,
+				310E90E3176E9185697C02E8 /* Pods-myMoti.debug.xcconfig */,
+				1CD041F23F0293042067A6C1 /* Pods-myMoti.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -176,9 +176,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C062A4C2C7A97CF0010D9F4 /* Moti */ = {
+		2C062A4C2C7A97CF0010D9F4 /* myMoti */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Moti" */;
+			buildConfigurationList = 2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "myMoti" */;
 			buildPhases = (
 				E2A284A9A652DE4F2E9F6C29 /* [CP] Check Pods Manifest.lock */,
 				2C062A492C7A97CF0010D9F4 /* Sources */,
@@ -191,9 +191,9 @@
 			);
 			dependencies = (
 			);
-			name = Moti;
-			productName = Tempethera;
-			productReference = 2C062A4D2C7A97CF0010D9F4 /* Moti.app */;
+			name = myMoti;
+			productName = myMoti;
+			productReference = 2C062A4D2C7A97CF0010D9F4 /* myMoti.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -211,7 +211,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Moti" */;
+			buildConfigurationList = 2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "myMoti" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -226,7 +226,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C062A4C2C7A97CF0010D9F4 /* Moti */,
+				2C062A4C2C7A97CF0010D9F4 /* myMoti */,
 			);
 		};
 /* End PBXProject section */
@@ -253,15 +253,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moti/Pods-Moti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-myMoti/Pods-myMoti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moti/Pods-Moti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-myMoti/Pods-myMoti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moti/Pods-Moti-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myMoti/Pods-myMoti-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E2A284A9A652DE4F2E9F6C29 /* [CP] Check Pods Manifest.lock */ = {
@@ -279,7 +279,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Moti-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-myMoti-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -297,7 +297,7 @@
 				2C062A642C7A9D5C0010D9F4 /* WeatherData.swift in Sources */,
 				2C062A552C7A97CF0010D9F4 /* Item.swift in Sources */,
 				2C062A622C7A9AE70010D9F4 /* WeatherManager.swift in Sources */,
-				2C062A512C7A97CF0010D9F4 /* Moti.swift in Sources */,
+				2C062A512C7A97CF0010D9F4 /* myMoti.swift in Sources */,
 				2C988C3D2C7C9A45007EBB34 /* ForecastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,24 +431,25 @@
 		};
 		2C062A5F2C7A97D00010D9F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 310E90E3176E9185697C02E8 /* Pods-Moti.debug.xcconfig */;
+			baseConfigurationReference = 310E90E3176E9185697C02E8 /* Pods-myMoti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Moti/Moti.entitlements;
+				CODE_SIGN_ENTITLEMENTS = myMoti/myMoti.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Moti/Preview Content\"";
-				DEVELOPMENT_TEAM = R8JF2W45R3;
+				DEVELOPMENT_ASSET_PATHS = "\"myMoti/Preview Content\"";
+				DEVELOPMENT_TEAM = YTS4KJBX3P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Moti;
+				INFOPLIST_KEY_CFBundleDisplayName = myMoti;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -457,7 +458,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.3;
-				PRODUCT_BUNDLE_IDENTIFIER = alb.peterdsp.moti;
+				PRODUCT_BUNDLE_IDENTIFIER = peterdsp.app.myMoti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -467,24 +468,25 @@
 		};
 		2C062A602C7A97D00010D9F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CD041F23F0293042067A6C1 /* Pods-Moti.release.xcconfig */;
+			baseConfigurationReference = 1CD041F23F0293042067A6C1 /* Pods-myMoti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Moti/Moti.entitlements;
+				CODE_SIGN_ENTITLEMENTS = myMoti/myMoti.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Moti/Preview Content\"";
-				DEVELOPMENT_TEAM = R8JF2W45R3;
+				DEVELOPMENT_ASSET_PATHS = "\"myMoti/Preview Content\"";
+				DEVELOPMENT_TEAM = YTS4KJBX3P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Moti;
+				INFOPLIST_KEY_CFBundleDisplayName = myMoti;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -493,7 +495,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.3;
-				PRODUCT_BUNDLE_IDENTIFIER = alb.peterdsp.moti;
+				PRODUCT_BUNDLE_IDENTIFIER = peterdsp.app.myMoti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -504,7 +506,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "Moti" */ = {
+		2C062A482C7A97CF0010D9F4 /* Build configuration list for PBXProject "myMoti" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C062A5C2C7A97D00010D9F4 /* Debug */,
@@ -513,7 +515,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "Moti" */ = {
+		2C062A5E2C7A97D00010D9F4 /* Build configuration list for PBXNativeTarget "myMoti" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C062A5F2C7A97D00010D9F4 /* Debug */,

@@ -1,6 +1,6 @@
 //
 //  Item.swift
-//  Moti
+//  myMoti
 //
 //  Created by Petros Dhespollari on 25/8/24.
 //

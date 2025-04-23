@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_MotiVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_MotiVersionString[];
+FOUNDATION_EXPORT double Pods_myMotiVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_myMotiVersionString[];
 

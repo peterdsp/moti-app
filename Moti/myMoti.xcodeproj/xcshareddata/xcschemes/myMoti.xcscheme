@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
-               BuildableName = "Moti.app"
-               BlueprintName = "Moti"
-               ReferencedContainer = "container:Moti.xcodeproj">
+               BuildableName = "myMoti.app"
+               BlueprintName = "myMoti"
+               ReferencedContainer = "container:myMoti.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
-            BuildableName = "Moti.app"
-            BlueprintName = "Moti"
-            ReferencedContainer = "container:Moti.xcodeproj">
+            BuildableName = "myMoti.app"
+            BlueprintName = "myMoti"
+            ReferencedContainer = "container:myMoti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C062A4C2C7A97CF0010D9F4"
-            BuildableName = "Moti.app"
-            BlueprintName = "Moti"
-            ReferencedContainer = "container:Moti.xcodeproj">
+            BuildableName = "myMoti.app"
+            BlueprintName = "myMoti"
+            ReferencedContainer = "container:myMoti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

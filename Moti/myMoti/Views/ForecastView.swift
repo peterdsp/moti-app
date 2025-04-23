@@ -1,6 +1,6 @@
 //
 //  ForecastView.swift
-//  Moti
+//  myMoti
 //
 //  Created by Petros Dhespollari on 26/8/24.
 //
