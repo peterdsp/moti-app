@@ -1,6 +1,6 @@
-# [Moti](https://peterdsp.gumroad.com/l/moti)
+# [myMoti](https://peterdsp.gumroad.com/l/moti)
 
-**Moti** is a macOS menu bar application designed with SwiftUI, leveraging WeatherApi to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 3-day weather forecast.
+**myMoti** is a macOS menu bar application designed with SwiftUI, leveraging WeatherApi to provide real-time weather updates. This lightweight and user-friendly app displays the current temperature and weather conditions directly in your menu bar, with an intuitive icon for quick reference. When clicked, it opens a detailed 3-day weather forecast.
 
 ![256-mac 10 35 58](https://github.com/user-attachments/assets/2706e0dc-e091-4fa2-bf47-b9cd233ac074)
 
@@ -26,13 +26,13 @@
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/peterdsp/moti-app.git
-cd moti-app
+git clone https://github.com/peterdsp/myMoti.git
+cd myMoti
 ```
 
 ### Configure the Project
 
-1. Open `Moti.xcodeproj` in Xcode.
+1. Open `myMoti.xcodeproj` in Xcode.
 2. Replace placeholders in the code with your WeatherApi API, go to WeatherManager.swift-> private let apiKey = **HERE PUT YOUR API KEY**.
 3. Set the `Signing & Capabilities` to your developer account.
 
